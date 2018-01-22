@@ -1,0 +1,57 @@
+<?php
+// module/Listes/view/listes/listes/index.phtml:
+
+$title = 'Listes des parties';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+
+<!-- JS pour hightcharts --->
+<script type="text/javascript" src="//code.highcharts.com/highcharts.js"></script>
+<script type="text/javascript" src="//code.highcharts.com/highcharts-more.js">
+</script><script type="text/javascript" src="//code.highcharts.com/modules/exporting.js"></script>
+
+
+<script type="text/javascript">
+var dataSet = [
+    <?php foreach($ancienne_partie AS $value) { ?>
+    [ "<?= $value['date'] ?>", "<?= $value['en_cours'] ?>", "<?= $value['partie_id'] ?>"],
+    <?php } ?>
+];
+ 
+$(document).ready(function() {
+    $('#example').DataTable( {
+        data: dataSet,
+        columns: [
+            { title: "Date" },
+            { title: "Statut" },
+            { title: "Action",
+            "render": function ( mData, type, row, meta ) {
+                                  return '<a href="/partie/partie/' + mData + '">Afficher</a>';                             
+                                }},
+        ],
+        bPaginate: false,
+        bFilter: false,
+        bInfo: false
+    } );
+} );
+
+</script>
+
+<table class="table">
+<!--     <tr>
+        <td>Sources ayant permis la contruction du tableau : <a href="https://datatables.net/examples/data_sources/ajax.html">https://datatables.net/examples/data_sources/ajax.html</a></td>
+    </tr>
+ -->    <tr>
+        <td>
+            <table id="example" class="display" width="100%" cellspacing="0">
+               
+            </table>
+        </td>
+    </tr>
+
+</table>
+
+<script type="text/javascript">
+$("#menu_listesparties").addClass("active");
+</script>

@@ -1,0 +1,33 @@
+<?php
+// module/Listes/view/listes/listes/index.phtml:
+
+$title = 'Nouvelle partie';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+
+<!-- JS pour hightcharts --->
+<script type="text/javascript" src="//code.highcharts.com/highcharts.js"></script>
+<script type="text/javascript" src="//code.highcharts.com/highcharts-more.js">
+</script><script type="text/javascript" src="//code.highcharts.com/modules/exporting.js"></script>
+
+<form action="/partie/nouvelle" method="POST">
+<table class="table">
+    <tr>
+        <td colspan="2"><strong>Liste des utilisateurs</strong></td>
+    </tr>
+    <?php foreach($joueurs AS $value) { ?>
+    <tr>
+        <td><input type="radio" name="joueur_<?= $value['id'] ?>" id="oui_<?= $value['id'] ?>" value="<?= $value['id'] ?>"<?= $value['radioOui'] ?>><label for="oui_<?= $value['id'] ?>">&nbsp;Oui</label> - <input type="radio" name="joueur_<?= $value['id'] ?>" id="non_<?= $value['id'] ?>"<?= $value['radioNon'] ?> value="0"><label for="non_<?= $value['id'] ?>">&nbsp;Non</label></td>
+        <td><?= $value['nom'] ?></td>
+    </tr>
+    <?php } ?>
+    <tr>
+        <td colspan="2"><input type="submit" id="submitbutton" value="Enregistrer" class="btn btn-primary"></td>
+    </tr>
+</table>
+</form>
+
+<script type="text/javascript">
+$("#menu_nouvellepartie").addClass("active");
+</script>
